@@ -1,0 +1,144 @@
+https://www.petlja.org/biblioteka/r/lekcije/uvod-u-programiranje/nedelja_08
+https://skolakoda.org/matrice
+https://www.programiz.com/c-programming/c-if-else-statement
+https://www.programiz.com/c-programming
+https://www.programiz.com/c-programming/examples
+https://books.google.rs/books?id=FEraDwAAQBAJ&pg=PR2&lpg=PR2&dq=praktikum+iz+osnova+organizacije+fon&source=bl&ots=TgV_fnvESX&sig=ACfU3U30sASjHTjg-Njdg2fzEeJD0qHfxw&hl=sr&sa=X&ved=2ahUKEwjw4ruFx-foAhXR_CoKHceTByQQ6AEwDnoECAwQKw#v=onepage&q&f=false
+https://portal.azure.com/?Microsoft_Azure_Education_correlationId=f03e4ea9-499e-4154-b901-49a4ea4e1713#blade/Microsoft_Azure_Education/EducationMenuBlade/software
+
+https://www.geeksforgeeks.org/restrict-keyword-c/
+
+https://www.tutorialspoint.com/cprogramming/c_typedef.htm
+https://www.mathworks.com/help/matlab/matlab_external/creating-a-mat-file-in-c.html
+https://www.geeksforgeeks.org/non-repeating-element/
+
+
+https://web.microsoftstream.com/video/97792a52-af8a-4d7c-b8db-365d6a1d4f51
+
+https://web.microsoftstream.com/video/06eb8a1b-43e9-42e1-a501-d455c8159adb
+
+https://web.microsoftstream.com/video/1d5bedd7-9e38-40ed-9d7b-eb6a03234670 mata 1. deo
+
+https://web.microsoftstream.com/video/5cfe769d-44d9-4cd4-bad2-a08e2fd99afc mata 2. deo
+
+
+https://learnenglish.britishcouncil.org/skills/writing/upper-intermediate-b2/a-letter-of-complaint
+
+https://web.microsoftstream.com/browse SVI KLIPOVI
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#define MAX_ARRAY 100
+#define MAX_MAT_ARRAY 10
+
+//funkcija za unos elemenata u niz na prvo mesto
+
+typedef  int TNIZ[MAX_ARRAY];
+typedef int TMAT[MAX_MAT_ARRAY];
+
+void unesiNaPocetak(TNIZ x, int *n, int broj);
+void prikaziNiz(TNIZ x, int n);
+void unesiMatricu(TMAT M, int n, int m);
+void prikaziMatricu(TMAT M, int n, int m);
+void unijaNizaZadatiRedMatrice(TNIZ x, int n, TMAT M, int kolona, int zred, TNIZ unija, int *nUnija);
+int postoji(TNIZ x, int n, int broj);
+//unija el. niza i zadatog reda matrice=upisem u novi niz(ne sme da se ponavja)
+
+int main()
+{
+	TNIZ x;
+	int n = 0;//br.elemenata niza
+	//ulazno izlazni parametar,mora biti pokazivac
+	TMAT M;
+	int dimm=2, dimn=3;
+
+	unesiNaPocetak(x,&n,10);
+	unesiNaPocetak(x, &n, 10);
+	unesiNaPocetak(x, &n, 20);
+	unesiNaPocetak(x, &n, 40);
+	unesiNaPocetak(x, &n, 30);
+	unesiNaPocetak(x, &n, 40);
+
+	printf("\n");
+	prikaziNiz(x, n);
+	
+	/*unesiMatricu(M, dimm, dimn);
+	printf("Matrica:\n");
+	prikaziMatricu(M, dimm, dimn);
+	*/
+	TNIZ unija;
+	int nUnija = 0;//dimenzija rezultujuceg niza
+	unijaNizaZadatiRedMatrice(x,n,M,dimn,0,unija,&nUnija);//0-zadati red
+	prikaziNiz(unija,)
+	printf("\n");
+	system("pause");
+	return 0;
+}
+void unesiNaPocetak(TNIZ x, int *n, int broj)
+{
+
+	for (int i = *n; i > 0; i--)
+	{
+		x[i] = x[i - 1];
+	}
+	x[0] = broj;
+	*n += 1;//uvecamo br elemenata jer unosimo novi element
+
+}
+void prikaziNiz(TNIZ x, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d\t", x[i]);
+	}
+}
+int postoji(TNIZ x, int n, int broj)//-1 ako ne postoji ,ako postoji vraca index
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (x[i] == broj) return i;
+
+	}
+	return -1;
+}
+void unesiMatricu(TMAT M, int n, int m)
+{
+	for (int j = 0; j < m; j++)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			printf("\n Unesi M[%d,%d]=", i, j);
+			scanf("%d", &M[i, j]);
+		}
+	}
+}
+void prikaziMatricu(TMAT M, int n, int m)
+{
+	for (int i= 0; i < n; i++)
+	{
+		for (int j = 0; j <m ; j++)
+		{
+			printf("%5d", M[i, j]);
+		}
+		printf("\n");
+	}
+}
+void unijaNizaZadatiRedMatrice(TNIZ x,int n,TMAT M,int kolona,int zred,TNIZ unija,int *nUnija) {
+	//prodji kroz sve elemente niza x i ubaci ih u niz unija ,alii proveri da li postoji pre ubacivanja
+	for (int i = 0; i < n; i++)
+	{
+		//da li vec postoji u nizu unija?
+		int signal = postoji(unija,*nUnija,x[i]);//signal=-1 broj ne postoji u nizu
+		if (signal == -1)
+			unesiNaPocetak(unija, nUnija, x[i]);
+	}
+	//prodji kroz zadati red matrice i ubaci u niz unija 
+	for (int j = 0; j < kolona; j++)
+	{
+		//element u koloni zadatog reda nalazi u nizu unija?
+		int signal = postoji(unija, *nUnija, M[zred,[j]);
+		if (signal == -1)
+			unesiNaPocetak(unija, nUnija, M[zred,[j]);
+	}
+}
